@@ -1,0 +1,38 @@
+{
+  "name": "SupFile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "native-base": "^2.4.4",
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "react-native-action-button": "^2.8.4",
+    "react-native-button": "^2.3.0",
+    "react-native-elements": "^0.19.1",
+    "react-native-fab": "^1.0.6",
+    "react-native-fontawesome": "^5.7.0",
+    "react-native-hamburger": "0.0.2",
+    "react-native-modal": "^6.0.0",
+    "react-native-modalbox": "^1.4.2",
+    "react-native-prompt": "^1.0.0",
+    "react-native-router-flux": "^4.0.0-beta.31",
+    "react-native-simple-modal": "^8.0.0",
+    "react-native-swipeout": "^2.3.3",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.0.1",
+    "tcomb-form-native": "^0.6.11"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.3",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
