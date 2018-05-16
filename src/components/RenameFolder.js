@@ -104,7 +104,7 @@ export default class AddFolder extends Component {
          <View style={styles.container}>
             <Modal
                animationType='slide'
-               transparent={true}
+               transparent={false}
                visible={this.state.modalVisible}
                onRequestClose={() => {
                   this.setModalVisible(!this.state.modalVisible);

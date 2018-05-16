@@ -47,7 +47,7 @@ export default class Routes extends Component {
                      onRight={()=>{}}
                      rightTitle={' Ajouter'}
                      showIcon={true}
-                     swipeEnabled={false}
+                     //swipeEnabled={false}
                   />
                   <Scene
                      key='profile'

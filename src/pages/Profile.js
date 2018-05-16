@@ -70,9 +70,11 @@ export default class Profile extends Component {
          <View style={styles.container}>
             <Text style={styles.user}>Email : {this.state.dataSource.email}</Text>
             <Text style={styles.user}>Password : {this.state.dataSource.password}</Text>
-            <TouchableOpacity onPress={this.logout.bind(this)}>
-               <Text>Se déconnecter</Text>
-            </TouchableOpacity>
+            <View style={styles.button}>
+               <TouchableOpacity onPress={this.logout.bind(this)} style={styles.logout}>
+                  <Text style={styles.logoutText}>Se déconnecter</Text>
+               </TouchableOpacity>
+            </View>
          </View>
       );
    }
@@ -81,10 +83,34 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
    container:{
       flex:1,
-      backgroundColor:'white'
+      backgroundColor:'white',
+   },
+   button:{
+      justifyContent:'center',
+      alignItems:'center'
    },
    user:{
-      fontSize:16,
+      fontSize:17,
+      marginLeft:20,
+      marginTop:10
 
+   },
+   logout:{
+      alignItems:'center',
+      width:300,
+      backgroundColor:'white',
+      paddingHorizontal:15,
+      paddingVertical:10,
+      marginVertical:5,
+      borderRadius:25,
+      borderWidth:3,
+      borderColor:'#EF6C00',
+      marginVertical:30
+   },
+   logoutText:{
+      color:'#EF6C00',
+      textAlign:'center',
+      fontWeight:'700',
+      fontSize:18
    }
 });

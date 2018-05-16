@@ -23,9 +23,9 @@ import Swipeout from 'react-native-swipeout';
 import { Card, ListItem, Icon } from 'react-native-elements';
 import { Container, Header, Content, ActionSheet, Right, Body, Left } from 'native-base';
 
-var BUTTONS = ['Renommer le dossier', 'Déplacer le dossier', 'Supprimer le dossier', 'Annuler'];
+var BUTTONS = ['Renommer le dossier', 'Supprimer le dossier', 'Annuler'];
 var RENAME_FOLDER_INDEX = 0;
-var MOVE_FOLDER_INDEX = 1;
+//var MOVE_FOLDER_INDEX = 1;
 var DELETE_FOLDER_INDEX = 2;
 var CANCEL_INDEX = 3;
 
@@ -35,34 +35,9 @@ class FlatListItem extends Component {
       this.actionSheet = null;
       this.state = {
          activeRow: null,
-         dataSource:'',
-         //dataChildsFolder:''
+         dataSource:''
       };
    }
-   //
-   // allChildsFolder(){
-   //    AsyncStorage.getItem('id_token').then((token)=>{
-   //       fetch('http://api.supfile.org/folder/childs/'+this.props.item._id,{
-   //          method:'GET',
-   //          headers:{
-   //             'Authorization': token
-   //          },
-   //       })
-   //       .then((response) => {
-   //          return response.json();
-   //       })
-   //       .then((responseJson) => {
-   //          //this.add();
-   //          this.setState({
-   //             dataChildsFolder:responseJson
-   //          });
-   //          //console.error(responseJson)
-   //       })
-   //       .catch((error) => {
-   //          console.error(error);
-   //       });
-   //    });
-   // }
 
    deleteFolder(){
       AsyncStorage.getItem('id_token').then((token)=>{
@@ -105,9 +80,6 @@ class FlatListItem extends Component {
                this.props.parentFlatList.handleRefresh();
             }
             if(buttonIndex === 1){
-               this.props.parentFlatList.handleRefresh();
-            }
-            if(buttonIndex === 2){
                this.deleteFolder();
                this.props.parentFlatList.handleRefresh();
             }
@@ -134,6 +106,8 @@ class FlatListItem extends Component {
 }
 
 export default class Home extends Component {
+
+   state = {selected: (new Map(): Map<string, boolean>)};
 
    constructor(props){
       super(props);
@@ -177,9 +151,10 @@ export default class Home extends Component {
             this.setState({
                //dataChildsFolder:responseJson
                dataFolder:responseJson,
+               //test: !this.state.test
             });
-            //this.props.parentFlatList.handleRefresh();
-            //console.error(responseJson)
+            this.props.parentFlatList.handleRefresh();
+            console.error(responseJson)
          })
          .catch((error) => {
             console.error(error);
@@ -200,7 +175,7 @@ export default class Home extends Component {
          .then((responseJson) => {
             //console.error(responseJson)
             this.setState({
-               dataFolder:responseJson
+               dataFolder:responseJson,
             });
          })
          .catch((error) => {
@@ -213,29 +188,38 @@ export default class Home extends Component {
       this.refs.addButton.showAddButton();
    }
 
-   itemSeparator(){
-      return <View style={styles.separator}/>
+   // _itemSeparator(){
+   //    return <View style={styles.separator}/>
+   // }
+
+   _keyExtractor = (item, index) => item._id;
+
+   _renderItem = ({item, index}) => {
+      return(
+         <FlatListItem
+            item={item}
+            index={index}
+            parentFlatList={this}
+
+            //id={item._id}
+            //name={item.name}
+            //selected={!!this.state.selected.get(item._id)}
+            onPressItem={this.allChildsFolder.bind(this)}
+         />
+      );
    }
+
+
 
    render(){
       return(
          <View style={styles.container}>
             <FlatList
                data={this.state.dataFolder}
-               extraData={this.state}
-               renderItem={({item, index}) => {
-                  //console.error(item);
-                  return(
-                        <FlatListItem
-                           item={item}
-                           index={index}
-                           parentFlatList={this}
-                           onPressItem={this.allChildsFolder}
-                        />
-                  );
-               }}
-               keyExtractor={(item, index)=> item._id}
-               //ItemSeparatorComponent={this.itemSeparator}
+               extraData={this.state.test}
+               renderItem={this._renderItem}
+               keyExtractor={this._keyExtractor}
+               //ItemSeparatorComponent={this._itemSeparator}
                refreshing={this.state.refreshing}
                onRefresh={this.handleRefresh}
             />
